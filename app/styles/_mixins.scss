@@ -3,28 +3,40 @@
 // -----------------------------------------------------------------------------
 @use "./variables" as *;
 @use "./functions" as *;
+@use "sass:list" as *;
 
-// Ultimate centering of flex children elements
 @mixin flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-// Flex with space between
 @mixin flex-sp-between {
   display: flex;
   justify-content: space-between;
 }
 
-@mixin flexbox($direction: row, $justify: flex-start, $align: stretch) {
+@mixin flexbox(
+  $direction: row,
+  $justify: flex-start,
+  $align: stretch,
+  $gap: null
+) {
+  @if not index($list: $justify-content-values, $value: $justify) {
+    @error "Invalid justify value: #{$justify}";
+  }
+  @if not index($list: $align-items-values, $value: $align) {
+    @error "Invalid align value: #{$align}";
+  }
+
   display: flex;
   flex-direction: $direction;
   justify-content: $justify;
   align-items: $align;
+  gap: $gap;
 }
 
-// Setup for pseudo elements
+// Initial setup for pseudo elements
 @mixin pseudo {
   content: "";
   position: absolute;
@@ -32,8 +44,11 @@
 
 // Media queries
 @mixin smaller-than($breakpoint) {
-  // In smaller-than mixin 0.1px is subtracted from breakpoint value
-  // to avoid intersection with larger-than mixin
+  @if not is-valid-size($breakpoint) {
+    @error "Invalid size passed to smaller-than mixin: #{$breakpoint}. Must be a positive number.";
+  }
+
+  // Subtract 0.1px to avoid intersection with larger-than mixin
   $new-breakpoint: $breakpoint - em(0.1px);
 
   @media screen and (max-width: $new-breakpoint) {
@@ -42,12 +57,15 @@
 }
 
 @mixin larger-than($breakpoint) {
+  @if not is-valid-size($breakpoint) {
+    @error "Invalid size passed to larger-than mixin: #{$breakpoint}. Must be a positive number.";
+  }
+
   @media screen and (min-width: $breakpoint) {
     @content;
   }
 }
 
-// Mixin to merge width and height properties
 @mixin size($width, $height: $width) {
   width: $width;
   height: $height;

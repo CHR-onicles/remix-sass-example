@@ -4,7 +4,7 @@
   font-size: rem(120px);
   font-weight: 500;
   // @include flex-center;
-  @include flexbox(row, space-between);
+  @include flexbox($justify: end);
 
   @include larger-than($md) {
     color: blue;

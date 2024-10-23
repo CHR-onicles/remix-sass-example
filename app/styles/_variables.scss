@@ -23,3 +23,28 @@ $sm: em(768px);
 $md: em(992px);
 $lg: em(1200px);
 $xl: em(1440px);
+
+// List of justify-content values
+$justify-content-values: (
+  flex-start,
+  flex-end,
+  center,
+  space-between,
+  space-around,
+  space-evenly,
+  start,
+  end,
+  left,
+  right
+);
+
+// List of align-items values
+$align-items-values: (
+  stretch,
+  flex-start,
+  flex-end,
+  center,
+  baseline,
+  start,
+  end
+);

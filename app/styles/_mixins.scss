@@ -1,0 +1,59 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+@use "./variables" as *;
+@use "./functions" as *;
+
+// Ultimate centering of flex children elements
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Flex with space between
+@mixin flex-sp-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin flexbox($direction: row, $justify: flex-start, $align: stretch) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// Setup for pseudo elements
+@mixin pseudo {
+  content: "";
+  position: absolute;
+}
+
+// Media queries
+@mixin smaller-than($breakpoint) {
+  // In smaller-than mixin 0.1px is subtracted from breakpoint value
+  // to avoid intersection with larger-than mixin
+  $new-breakpoint: $breakpoint - em(0.1px);
+
+  @media screen and (max-width: $new-breakpoint) {
+    @content;
+  }
+}
+
+@mixin larger-than($breakpoint) {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+// Mixin to merge width and height properties
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin circle($diameter) {
+  border-radius: 50%;
+  @include size($diameter);
+}

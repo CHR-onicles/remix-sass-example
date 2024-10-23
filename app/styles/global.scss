@@ -1,0 +1,17 @@
+@use "./functions" as *;
+
+*,
+::before,
+::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  font-size: rem(16px);
+  font-family: "inter", sans-serif;
+}

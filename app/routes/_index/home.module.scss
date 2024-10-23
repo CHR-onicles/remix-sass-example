@@ -1,0 +1,22 @@
+@use "~/styles/index" as *;
+
+.heading {
+  font-size: rem(120px);
+  font-weight: 500;
+  // @include flex-center;
+  @include flexbox(row, space-between);
+
+  @include larger-than($md) {
+    color: blue;
+  }
+
+  @include smaller-than($md) {
+    color: $text-color;
+  }
+}
+
+.text-section {
+  p {
+    color: $alt-text-color;
+  }
+}

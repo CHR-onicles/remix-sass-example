@@ -1,0 +1,18 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass functions.
+// -----------------------------------------------------------------------------
+@use "sass:math";
+
+//-----------------------
+// Convert px to rem
+//-----------------------
+@function rem($value) {
+  @return math.div($value, 16px) * 1rem;
+}
+
+//-----------------------
+// Convert px to em
+//-----------------------
+@function em($value, $context: 16px) {
+  @return math.div($value, $context) * 1em;
+}

@@ -1,11 +1,12 @@
 @use "~/styles/index" as *;
 
 .heading {
+  @include size(auto, 200px);
   font-size: rem(120px);
   font-weight: 500;
-  // @include flex-center;
-  @include flexbox($justify: end);
-
+  @include flex-center;
+  // @include mx-auto-width(fit-content);
+  @include flex($justify: end, $align: center);
   @include larger-than($md) {
     color: blue;
   }

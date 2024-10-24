@@ -11,22 +11,17 @@
   align-items: center;
 }
 
-@mixin flex-sp-between {
-  display: flex;
-  justify-content: space-between;
-}
-
-@mixin flexbox(
+@mixin flex(
   $direction: row,
   $justify: flex-start,
   $align: stretch,
   $gap: null
 ) {
   @if not index($list: $justify-content-values, $value: $justify) {
-    @error "Invalid justify value: #{$justify}";
+    @error "Invalid justify-content value: #{$justify}";
   }
   @if not index($list: $align-items-values, $value: $align) {
-    @error "Invalid align value: #{$align}";
+    @error "Invalid align-items value: #{$align}";
   }
 
   display: flex;
@@ -40,6 +35,37 @@
 @mixin pseudo {
   content: "";
   position: absolute;
+}
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin circle($diameter) {
+  border-radius: 50%;
+  @include size($diameter);
+}
+
+@mixin line-clamp($lines: 1) {
+  @if $lines <= 0 {
+    @error "No. of lines has to be greater than 0: #{$lines}";
+  }
+
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+@mixin clip-border($border-radius: 0px) {
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+
+@mixin mx-auto-width($width: null) {
+  margin-inline: auto;
+  width: if($width == null, fit-content, $width);
 }
 
 // Media queries
@@ -64,14 +90,4 @@
   @media screen and (min-width: $breakpoint) {
     @content;
   }
-}
-
-@mixin size($width, $height: $width) {
-  width: $width;
-  height: $height;
-}
-
-@mixin circle($diameter) {
-  border-radius: 50%;
-  @include size($diameter);
 }

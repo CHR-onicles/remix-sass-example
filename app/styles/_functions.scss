@@ -20,5 +20,50 @@
 
 // Function to check if a value is a valid size
 @function is-valid-size($size) {
-  @return meta.type-of($size) == number and $size > 0;
+  @return meta.type-of($size) == number and $size >= 0;
+}
+
+// Function to apply opacity to CSS variable colors (Sass cannot interpret CSS color variables)
+@function alpha-css-var($css-var, $amount: 0) {
+  @if $amount < 0 {
+    @error "Alpha amount must be a positive number: #{$amount}";
+  }
+
+  $alpha-percentage: $amount * 100%;
+  $css-var-percentage: 100% - $alpha-percentage;
+  @return color-mix(
+    in srgb,
+    rgba(0, 0, 0, 0) $alpha-percentage,
+    $css-var $css-var-percentage
+  );
+}
+
+// Function to darken CSS variable colors (Sass cannot interpret CSS color variables)
+@function darken-css-var($css-var: null, $amount: 0) {
+  @if $amount < 0 {
+    @error "Darken amount must be a positive number: #{$amount}";
+  }
+
+  $darken-percentage: $amount * 100%;
+  $css-var-percentage: 100% - $darken-percentage;
+  @return color-mix(
+    in srgb,
+    black $darken-percentage,
+    $css-var $css-var-percentage
+  );
+}
+
+// Function to lighten CSS variable colors (Sass cannot interpret CSS color variables)
+@function lighten-css-var($css-var, $amount: 0) {
+  @if $amount < 0 {
+    @error "Lighten amount must be a positive number: #{$amount}";
+  }
+
+  $lighten-percentage: $amount * 100%;
+  $css-var-percentage: 100% - $lighten-percentage;
+  @return color-mix(
+    in srgb,
+    white $lighten-percentage,
+    $css-var $css-var-percentage
+  );
 }
